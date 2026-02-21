@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إلى هاله 💛</title>
+
+<style>
+body{
+margin:0;
+padding:0;
+font-family:Arial;
+background:#4b0082;
+color:gold;
+text-align:center;
+overflow-x:hidden;
+position:relative;
+}
+
+/* نجوم */
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+0%{opacity:0;}
+100%{opacity:1;}
+}
+
+.container{padding:30px;}
+
+.card{
+background:rgba(0,0,0,0.6);
+padding:25px;
+border-radius:20px;
+box-shadow:0 0 25px gold;
+margin-bottom:20px;
+}
+
+button{
+padding:10px 20px;
+margin:10px;
+border:none;
+border-radius:10px;
+background:gold;
+color:black;
+cursor:pointer;
+font-size:16px;
+}
+
+.heart{
+position:fixed;
+color:gold;
+animation:fall 5s linear infinite;
+font-size:20px;
+}
+
+@keyframes fall{
+0%{top:-10px;}
+100%{top:100vh;}
+}
+
+#secret{
+color:gold;
+text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+font-weight:bold;
+font-size:18px;
+line-height:1.5em;
+}
+
+.fade { opacity:0; transition:opacity 1s; }
+.fade.show { opacity:1; }
+</style>
+</head>
+
+<body>
+
+<!-- نجوم -->
+<script>
+for(let i=0;i<50;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*100+"vh";
+star.style.left=Math.random()*100+"vw";
+document.body.appendChild(star);
+}
+</script>
+
+<!-- كلمة السر -->
+<script>
+let password = prompt("ادخلي الباسورد 💛");
+if(password !== "6/9"){
+alert("الباسورد غلط 😅");
+window.location.href="https://google.com";
+}
+</script>
+
+<!-- 🎵 الموسيقى -->
+<audio id="music" loop>
+<source src="Amr Diab.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+
+<h1>إلى هاله 💛 (حمصاني / لولو)</h1>
+
+<div class="card">
+<p>
+يا لولو…  
+من يوم 10/7/2025 وإنتي أجمل حاجة حصلتلي 💛
+</p>
+
+<h3 id="counter"></h3>
+
+<button onclick="playMusic()">تشغيل الأغنية 🎵</button>
+<button onclick="showSecret()">اضغطي هنا يا لولو</button>
+
+<p id="secret"></p>
+</div>
+
+<!-- الصور -->
+<div class="card">
+<img id="slide" class="fade show"
+src="IMG-20260215-WA0052.jpg"
+style="width:80%;border-radius:15px;border:2px solid gold;">
+<br>
+<button onclick="prevSlide()">السابق</button>
+<button onclick="nextSlide()">التالي</button>
+</div>
+
+</div>
+
+<script>
+/* 🎵 تشغيل الأغنية */
+function playMusic(){
+let music=document.getElementById("music");
+music.play();
+}
+
+/* ⏳ العداد الدقيق */
+let startDate=new Date("2025-07-10T00:00:00");
+
+function updateCounter(){
+let now=new Date();
+
+let years=now.getFullYear()-startDate.getFullYear();
+let months=now.getMonth()-startDate.getMonth();
+let days=now.getDate()-startDate.getDate();
+
+if(days<0){
+months--;
+let prevMonth=new Date(now.getFullYear(),now.getMonth(),0);
+days+=prevMonth.getDate();
+}
+
+if(months<0){
+years--;
+months+=12;
+}
+
+let tempDate=new Date(
+startDate.getFullYear()+years,
+startDate.getMonth()+months,
+startDate.getDate()+days
+);
+
+let diff=now-tempDate;
+
+let hours=Math.floor(diff/(1000*60*60));
+let minutes=Math.floor(diff/(1000*60))%60;
+let seconds=Math.floor(diff/1000)%60;
+
+document.getElementById("counter").innerHTML=
+`بقالنا مع بعض 💛<br>
+${years} سنة ${months} شهر ${days} يوم<br>
+${hours} ساعة ${minutes} دقيقة ${seconds} ثانية`;
+}
+
+setInterval(updateCounter,1000);
+updateCounter();
+
+/* ✨ الرسالة */
+function showSecret(){
+const message=`بحبك ومفيش أسباب 💛
+وجودك حياة، وضحكتك أمان.
+انتي نصيبي وقلبي ليكي دايمًا 💜`;
+
+let secret=document.getElementById("secret");
+secret.innerHTML="";
+let i=0;
+
+let interval=setInterval(()=>{
+secret.innerHTML+=message.charAt(i);
+i++;
+if(i>=message.length) clearInterval(interval);
+},50);
+}
+
+/* ❤️ قلوب */
+setInterval(function(){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(10+Math.random()*30)+"px";
+heart.innerHTML="❤️";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),5000);
+},500);
+
+/* 🖼️ سلايدر */
+let slides=[
+"IMG-20260215-WA0052.jpg",
+"IMG-20260215-WA0051.jpg",
+"IMG-20251209-WA0000.jpg",
+"IMG-20260215-WA0049.jpg"
+];
+
+let current=0;
+
+function showSlide(index){
+let img=document.getElementById("slide");
+img.classList.remove("show");
+setTimeout(()=>{
+img.src=slides[index];
+img.classList.add("show");
+},200);
+}
+
+function nextSlide(){
+current=(current+1)%slides.length;
+showSlide(current);
+}
+
+function prevSlide(){
+current=(current-1+slides.length)%slides.length;
+showSlide(current);
+}
+</script>
+
+</body>
+  </html>
